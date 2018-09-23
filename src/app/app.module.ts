@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '../environments/environment';
@@ -26,6 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AppEffects]),
     AppRoutingModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

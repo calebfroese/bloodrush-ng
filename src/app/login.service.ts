@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
-  CognitoUserPool,
-  CognitoUser,
   AuthenticationDetails,
+  CognitoUser,
   CognitoUserAttribute,
+  CognitoUserPool,
+  ISignUpResult,
 } from 'amazon-cognito-identity-js';
 
 import { environment } from '../environments/environment';
@@ -17,12 +18,15 @@ export class LoginService {
     ClientId: environment.cognito.clientId,
   });
 
-  async registerAccount(email: string, password: string) {
+  async registerAccount(
+    email: string,
+    password: string
+  ): Promise<ISignUpResult> {
     const emailAttr = new CognitoUserAttribute({
       Name: 'email',
       Value: email,
     });
-    return new Promise((resolve, reject) => {
+    return new Promise<ISignUpResult>((resolve, reject) => {
       this.pool.signUp(email, password, [emailAttr], null, (err, data) => {
         if (err) reject(err);
         else resolve(data);

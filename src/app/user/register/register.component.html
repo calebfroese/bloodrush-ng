@@ -1,5 +1,5 @@
 <div fxFill fxLayout="column" fxLayoutAlign="center center">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="submit(form.value)">
     <mat-card fxLayout="column">
       <mat-form-field fxFill>
         <input formControlName="email" matInput placeholder="Email" />
@@ -8,7 +8,7 @@
         <input formControlName="password" matInput type="password" placeholder="Password" />
       </mat-form-field>
       <div fxFill fxLayout="row">
-        <button [disabled]="!form.valid" fxFlex mat-button mat-stroked-button>Create Account</button>
+        <button type="submit" [disabled]="!form.valid" fxFlex mat-button mat-stroked-button>Create Account</button>
       </div>
       <p>
         <a routerLink="/login">Already have an account?</a>

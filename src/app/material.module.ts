@@ -3,9 +3,15 @@ import {
   MatButtonModule,
   MatCardModule,
   MatInputModule,
+  MatSnackBarModule,
 } from '@angular/material';
 
-const MATERIAL_MODULES = [MatCardModule, MatInputModule, MatButtonModule];
+const MATERIAL_MODULES = [
+  MatCardModule,
+  MatInputModule,
+  MatButtonModule,
+  MatSnackBarModule,
+];
 
 @NgModule({
   imports: [...MATERIAL_MODULES],

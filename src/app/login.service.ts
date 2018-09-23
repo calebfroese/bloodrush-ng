@@ -20,6 +20,7 @@ export class LoginService {
     UserPoolId: environment.cognito.userPoolId,
     ClientId: environment.cognito.clientId,
   });
+  session: CognitoUserSession;
 
   registerAccount(email: string, password: string): Observable<ISignUpResult> {
     const emailAttr = new CognitoUserAttribute({
@@ -75,6 +76,7 @@ export class LoginService {
     return Observable.create((obs: Observer<any>) => {
       user.authenticateUser(auth, {
         onSuccess: session => {
+          this.session = session;
           obs.next(session);
           obs.complete();
         },
@@ -90,9 +92,10 @@ export class LoginService {
     return Observable.create((obs: Observer<any>) => {
       const user = this.pool.getCurrentUser();
       if (user) {
-        user.getSession((err, data) => {
-          if (data && data.isValid()) {
-            obs.next(data);
+        user.getSession((err, session) => {
+          if (session && session.isValid()) {
+            this.session = session;
+            obs.next(session);
           }
           obs.complete();
         });

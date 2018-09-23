@@ -33,33 +33,48 @@ export class LoginService {
     });
   }
 
-  async confirmRegistration(username: string, code: string) {
+  confirmRegistration(username: string, code: string): Observable<void> {
     const user = new CognitoUser({
       Username: username,
       Pool: this.pool,
     });
-    return new Promise((resolve, reject) => {
+    return Observable.create((obs: Observer<any>) => {
       user.confirmRegistration(code, false, (err, data) => {
-        if (err) reject(err);
-        else resolve(data);
+        if (err) obs.error(err);
+        else obs.next(data);
+        obs.complete();
       });
     });
   }
 
-  async login(username: string, password: string) {
+  resendVerification(username: string): Observable<string> {
     const user = new CognitoUser({
       Username: username,
       Pool: this.pool,
     });
-    const auth = new AuthenticationDetails({
-      Username: username,
-      Password: password,
-    });
-    return new Promise((resolve, reject) => {
-      user.authenticateUser(auth, {
-        onSuccess: resolve,
-        onFailure: reject,
+    return Observable.create((obs: Observer<any>) => {
+      user.resendConfirmationCode((err, data) => {
+        if (err) obs.error(err);
+        else obs.next(data);
+        obs.complete();
       });
     });
   }
+
+  // login(username: string, password: string): Observable<any> {
+  //   const user = new CognitoUser({
+  //     Username: username,
+  //     Pool: this.pool,
+  //   });
+  //   const auth = new AuthenticationDetails({
+  //     Username: username,
+  //     Password: password,
+  //   });
+  //   return new Promise((resolve, reject) => {
+  //     user.authenticateUser(auth, {
+  //       onSuccess: resolve,
+  //       onFailure: reject,
+  //     });
+  //   });
+  // }
 }

@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
+import { HomeModule } from './home/home.module';
 import { metaReducers, reducers } from './reducers';
 import { SharedModule } from './shared.module';
 import { UserModule } from './user/user.module';
@@ -28,6 +29,7 @@ import { UserModule } from './user/user.module';
       logOnly: environment.production,
     }),
     UserModule,
+    HomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,7 +1,9 @@
-<form [formGroup]="form">
+<!-- <form [formGroup]="form">
   <input formControlName="username" />
   <input formControlName="password" />
   <button [disabled]="!form.valid" (click)="register(form.value)" type="submit">Create Account</button>
   <button [disabled]="!form.valid" (click)="login(form.value)" type="submit">Login</button>
-</form>
-<router-outlet></router-outlet>
+</form> -->
+<div class="page" fxFlex fxFill>
+  <router-outlet></router-outlet>
+</div>

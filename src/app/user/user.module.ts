@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StoreModule } from '@ngrx/store';
-import * as fromUser from './reducers/user.reducer';
+import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+
+import { SharedModule } from '../shared.module';
 import { UserEffects } from './effects/user.effects';
 import { LoginComponent } from './login/login.component';
+import * as fromUser from './reducers/user.reducer';
 import { UserRoutingModule } from './user-routing.module';
 
 @NgModule({
@@ -12,8 +14,9 @@ import { UserRoutingModule } from './user-routing.module';
     CommonModule,
     StoreModule.forFeature('user', fromUser.reducer),
     EffectsModule.forFeature([UserEffects]),
-    UserRoutingModule
+    UserRoutingModule,
+    SharedModule,
   ],
-  declarations: [LoginComponent]
+  declarations: [LoginComponent],
 })
-export class UserModule { }
+export class UserModule {}

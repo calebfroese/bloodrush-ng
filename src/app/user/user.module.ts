@@ -7,6 +7,7 @@ import { SharedModule } from '../shared.module';
 import { UserEffects } from './effects/user.effects';
 import { LoginComponent } from './login/login.component';
 import * as fromUser from './reducers/user.reducer';
+import { RegisterComponent } from './register/register.component';
 import { UserRoutingModule } from './user-routing.module';
 
 @NgModule({
@@ -17,6 +18,6 @@ import { UserRoutingModule } from './user-routing.module';
     UserRoutingModule,
     SharedModule,
   ],
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
 })
 export class UserModule {}

@@ -95,3 +95,7 @@ export const getLoggedIn = createSelector(
   featureSelector,
   state => !!state.userSession
 );
+export const getUserSession = createSelector(
+  featureSelector,
+  state => state.userSession
+);

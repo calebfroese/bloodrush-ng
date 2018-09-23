@@ -7,7 +7,12 @@ export const environment = {
   cognito: {
     userPoolId: 'us-east-1_H0NnVdXNt',
     clientId: '33d94pk3oi3au4chn7qffasjjs',
-  }
+  },
+  appsync: {
+    url:
+      'https://hcl2znzivvbdvnh64xuaeccazy.appsync-api.us-east-1.amazonaws.com/graphql',
+    region: 'us-east-1',
+  },
 };
 
 /*

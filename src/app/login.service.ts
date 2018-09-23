@@ -7,6 +7,7 @@ import {
   CognitoUserSession,
   ISignUpResult,
 } from 'amazon-cognito-identity-js';
+import * as AWS from 'aws-sdk';
 import { Observable, Observer } from 'rxjs';
 
 import { environment } from '../environments/environment';
@@ -73,13 +74,8 @@ export class LoginService {
     });
     return Observable.create((obs: Observer<any>) => {
       user.authenticateUser(auth, {
-        onSuccess: data => {
-          console.log(
-            'getAccessToken jwt',
-            data.getAccessToken().getJwtToken()
-          );
-          console.log('idToken jwt', data.getIdToken().getJwtToken());
-          obs.next(data);
+        onSuccess: session => {
+          obs.next(session);
           obs.complete();
         },
         onFailure: err => {

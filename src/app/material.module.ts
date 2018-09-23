@@ -3,6 +3,8 @@ import {
   MatButtonModule,
   MatCardModule,
   MatInputModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
   MatSnackBarModule,
 } from '@angular/material';
 
@@ -11,6 +13,8 @@ const MATERIAL_MODULES = [
   MatInputModule,
   MatButtonModule,
   MatSnackBarModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({

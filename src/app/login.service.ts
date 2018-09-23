@@ -6,6 +6,7 @@ import {
   CognitoUserPool,
   ISignUpResult,
 } from 'amazon-cognito-identity-js';
+import { Observable, Observer } from 'rxjs';
 
 import { environment } from '../environments/environment';
 
@@ -18,18 +19,16 @@ export class LoginService {
     ClientId: environment.cognito.clientId,
   });
 
-  async registerAccount(
-    email: string,
-    password: string
-  ): Promise<ISignUpResult> {
+  registerAccount(email: string, password: string): Observable<ISignUpResult> {
     const emailAttr = new CognitoUserAttribute({
       Name: 'email',
       Value: email,
     });
-    return new Promise<ISignUpResult>((resolve, reject) => {
+    return Observable.create((obs: Observer<any>) => {
       this.pool.signUp(email, password, [emailAttr], null, (err, data) => {
-        if (err) reject(err);
-        else resolve(data);
+        if (err) obs.error(err);
+        else obs.next(data);
+        obs.complete();
       });
     });
   }

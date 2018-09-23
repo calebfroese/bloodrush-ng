@@ -1,3 +1,5 @@
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+
 import { UserActions, UserActionTypes } from '../actions/user.actions';
 
 export interface State {
@@ -21,3 +23,9 @@ export function reducer(state = initialState, action: UserActions): State {
       return state;
   }
 }
+
+export const featureSelector = createFeatureSelector<State>('user');
+export const getSignUpLoading = createSelector(
+  featureSelector,
+  state => state.signUpLoading
+);

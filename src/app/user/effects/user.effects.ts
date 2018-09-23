@@ -12,15 +12,18 @@ import { of } from 'rxjs';
 export class UserEffects {
   @Effect()
   signUp$ = this.actions$.pipe(
+    tap(action => {
+      console.log(action);
+    }),
     ofType<UserActions.SignUp>(UserActionTypes.SignUp),
     switchMap(action =>
-      this.loginService.registerAccount(
-        action.payload.email,
-        action.payload.password
-      )
-    ),
-    map(response => new UserActions.SignUpSuccess(response)),
-    catchError(err => of(new UserActions.SignUpError(err))),
+      this.loginService
+        .registerAccount(action.payload.email, action.payload.password)
+        .pipe(
+          map(response => new UserActions.SignUpSuccess(response)),
+          catchError(err => of(new UserActions.SignUpError(err)))
+        )
+    )
   );
 
   @Effect({ dispatch: false })

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { AuthenticationGuard } from './authentication.guard';
 import { MaterialModule } from './material.module';
 
 @NgModule({
@@ -13,6 +14,7 @@ import { MaterialModule } from './material.module';
     MaterialModule,
     FlexLayoutModule,
   ],
+  providers: [AuthenticationGuard],
   exports: [FormsModule, ReactiveFormsModule, MaterialModule, FlexLayoutModule],
 })
 export class SharedModule {}

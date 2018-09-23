@@ -64,3 +64,7 @@ export const getLoginLoading = createSelector(
   state => state.loginLoading
 );
 export const getEmail = createSelector(featureSelector, state => state.email);
+export const getLoggedIn = createSelector(
+  featureSelector,
+  state => !!state.userSession
+);

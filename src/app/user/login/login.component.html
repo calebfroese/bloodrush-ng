@@ -1,14 +1,16 @@
 <div fxFill fxLayout="column" fxLayoutAlign="center center">
   <mat-card>
-    <mat-form-field fxFill>
-      <input matInput placeholder="Email" />
-    </mat-form-field>
-    <mat-form-field fxFill>
-      <input matInput type="password" placeholder="Password" />
-    </mat-form-field>
-    <div fxFill fxLayout="row" fxLayoutGap="10px">
-      <button fxFlex mat-button mat-stroked-button>Login</button>
-      <button fxFlex mat-button>Register</button>
-    </div>
+    <form [formGroup]="form">
+      <mat-form-field fxFill>
+        <input formControlName="email" matInput placeholder="Email" />
+      </mat-form-field>
+      <mat-form-field fxFill>
+        <input formControlName="password" matInput type="password" placeholder="Password" />
+      </mat-form-field>
+      <div fxFill fxLayout="row" fxLayoutGap="10px">
+        <button [disabled]="!form.valid" fxFlex mat-button mat-stroked-button>Login</button>
+        <button fxFlex mat-button>Register</button>
+      </div>
+    </form>
   </mat-card>
 </div>

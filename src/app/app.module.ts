@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
@@ -20,8 +19,6 @@ import { UserModule } from './user/user.module';
     BrowserModule,
     BrowserAnimationsModule,
     UserModule,
-    FormsModule,
-    ReactiveFormsModule,
     StoreDevtoolsModule.instrument({
       name: 'NgRx Book Store DevTools',
       logOnly: environment.production,

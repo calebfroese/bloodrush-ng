@@ -24,6 +24,12 @@ export class UserEffects {
     )
   );
 
+  @Effect({ dispatch: false })
+  loginSuccess$ = this.actions$.pipe(
+    ofType<UserActions.LoginSuccess>(UserActionTypes.LoginSuccess),
+    tap(() => this.router.navigate(['/home']))
+  );
+
   @Effect()
   signUp$ = this.actions$.pipe(
     ofType<UserActions.SignUp>(UserActionTypes.SignUp),

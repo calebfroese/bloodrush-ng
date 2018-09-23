@@ -27,6 +27,9 @@ export class UserEffects {
   @Effect({ dispatch: false })
   loginSuccess$ = this.actions$.pipe(
     ofType<UserActions.LoginSuccess>(UserActionTypes.LoginSuccess),
+    tap(action =>
+      localStorage.setItem('userSession', JSON.stringify(action.payload))
+    ),
     tap(() => this.router.navigate(['/home']))
   );
 

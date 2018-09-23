@@ -7,7 +7,6 @@ import {
   CognitoUserSession,
   ISignUpResult,
 } from 'amazon-cognito-identity-js';
-import * as AWS from 'aws-sdk';
 import { Observable, Observer } from 'rxjs';
 
 import { environment } from '../environments/environment';

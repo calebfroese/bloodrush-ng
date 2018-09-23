@@ -18,6 +18,7 @@ describe('User Reducer', () => {
       expect(result).toEqual({
         ...initialState,
         signUpLoading: true,
+        email: 'something@example.com',
       });
     });
   });
@@ -33,14 +34,11 @@ describe('User Reducer', () => {
     });
   });
 
-  describe(UserActions.SignUpError.name, () => {
+  describe(UserActions.UserError.name, () => {
     it('reduces', () => {
-      const action = new UserActions.SignUpError(new Error('Sign up failed'));
+      const action = new UserActions.UserError(new Error('Sign up failed'));
       const result = reducer(initialState, action);
-      expect(result).toEqual({
-        ...initialState,
-        signUpLoading: false,
-      });
+      expect(result).toEqual(initialState);
     });
   });
 });

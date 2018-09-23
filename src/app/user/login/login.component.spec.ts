@@ -1,7 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
 
-import { SharedModule } from '../../shared.module';
+import { MaterialModule } from '../../material.module';
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
@@ -10,7 +12,13 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, SharedModule],
+      imports: [
+        NoopAnimationsModule,
+        StoreModule.forRoot({}),
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+      ],
       declarations: [LoginComponent],
     }).compileComponents();
   }));

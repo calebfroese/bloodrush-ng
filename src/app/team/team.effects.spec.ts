@@ -3,6 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
 import { TeamEffects } from './team.effects';
+import { AppSyncService } from '../app-sync.service';
 
 describe('TeamEffects', () => {
   let actions$: Observable<any>;
@@ -12,8 +13,9 @@ describe('TeamEffects', () => {
     TestBed.configureTestingModule({
       providers: [
         TeamEffects,
-        provideMockActions(() => actions$)
-      ]
+        AppSyncService,
+        provideMockActions(() => actions$),
+      ],
     });
 
     effects = TestBed.get(TeamEffects);

@@ -74,6 +74,11 @@ export class LoginService {
     return Observable.create((obs: Observer<any>) => {
       user.authenticateUser(auth, {
         onSuccess: data => {
+          console.log(
+            'getAccessToken jwt',
+            data.getAccessToken().getJwtToken()
+          );
+          console.log('idToken jwt', data.getIdToken().getJwtToken());
           obs.next(data);
           obs.complete();
         },
@@ -82,6 +87,20 @@ export class LoginService {
           obs.complete();
         },
       });
+    });
+  }
+
+  loginFromCache(): Observable<CognitoUserSession> {
+    return Observable.create((obs: Observer<any>) => {
+      const user = this.pool.getCurrentUser();
+      if (user) {
+        user.getSession((err, data) => {
+          if (data && data.isValid()) {
+            obs.next(data);
+          }
+          obs.complete();
+        });
+      }
     });
   }
 

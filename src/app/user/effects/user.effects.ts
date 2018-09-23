@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { map, switchMap, catchError, tap, mapTo } from 'rxjs/operators';
+import { map, switchMap, catchError, tap, mapTo, filter } from 'rxjs/operators';
 
 import { LoginService } from '../../login.service';
 import * as UserActions from '../actions/user.actions';
@@ -11,6 +11,12 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class UserEffects {
+  @Effect()
+  loginFromCache$ = this.loginService.loginFromCache().pipe(
+    filter(Boolean),
+    map(user => new UserActions.LoginSuccess(user))
+  );
+
   @Effect()
   login$ = this.actions$.pipe(
     ofType<UserActions.Login>(UserActionTypes.Login),

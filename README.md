@@ -1,4 +1,22 @@
-# BloodrushNg
+# Bloodrush Angular
+
+Bloodrush is a competitive web-based multiplayer team management game.
+
+## About
+
+At it's core, bloodrush is a competitive team management game.
+You can spend as long or as little each day managing.
+Players have individual stats across the board, and different playstyles makes the team management and layout much more involved than it first seems.
+Once on the field, the players from each side of the board will battle in a desperate attempt to get to the scoring zone behind their opponents.
+Each player has a chance to get injured and lose stats, or if they're really unlucky they could die!
+
+_Bloodrush Landing Page Prototype_
+
+![p5zbtrf1svay](https://user-images.githubusercontent.com/19592095/45929083-1006ae00-bf8c-11e8-90e1-bb4b939e4b34.png)
+
+## Overview
+
+This repository contains the web front end for Bloodrush.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.2.
 

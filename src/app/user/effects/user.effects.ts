@@ -44,6 +44,12 @@ export class UserEffects {
   );
 
   @Effect({ dispatch: false })
+  verifySuccess$ = this.actions$.pipe(
+    ofType<UserActions.VerifySuccess>(UserActionTypes.VerifySuccess),
+    tap(() => this.router.navigate(['/login']))
+  );
+
+  @Effect({ dispatch: false })
   resendVerification$ = this.actions$.pipe(
     ofType<UserActions.ResendVerification>(UserActionTypes.ResendVerification),
     switchMap(action =>

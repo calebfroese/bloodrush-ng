@@ -84,4 +84,46 @@ export class LoginService {
       });
     });
   }
+
+  forgotPassword(username: string): Observable<any> {
+    const user = new CognitoUser({
+      Username: username,
+      Pool: this.pool,
+    });
+    return Observable.create((obs: Observer<any>) => {
+      user.forgotPassword({
+        onSuccess: data => {
+          obs.next(data);
+          obs.complete();
+        },
+        onFailure: err => {
+          obs.error(err);
+          obs.complete();
+        },
+      });
+    });
+  }
+
+  forgotPasswordConfirm(
+    username: string,
+    newPassword: string,
+    code: string
+  ): Observable<any> {
+    const user = new CognitoUser({
+      Username: username,
+      Pool: this.pool,
+    });
+    return Observable.create((obs: Observer<any>) => {
+      user.confirmPassword(code, newPassword, {
+        onSuccess: () => {
+          obs.next({});
+          obs.complete();
+        },
+        onFailure: err => {
+          obs.error(err);
+          obs.complete();
+        },
+      });
+    });
+  }
 }

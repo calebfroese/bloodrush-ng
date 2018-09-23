@@ -7,6 +7,8 @@ export interface State {
   signUpLoading: boolean;
   verifyLoading: boolean;
   loginLoading: boolean;
+  forgotPasswordLoading: boolean;
+  forgotPasswordCodeReady: boolean;
   email?: string;
   userSession?: CognitoUserSession;
 }
@@ -15,6 +17,8 @@ export const initialState: State = {
   signUpLoading: false,
   verifyLoading: false,
   loginLoading: false,
+  forgotPasswordLoading: false,
+  forgotPasswordCodeReady: false,
 };
 
 export function reducer(state = initialState, action: UserActions): State {
@@ -37,12 +41,24 @@ export function reducer(state = initialState, action: UserActions): State {
     case UserActionTypes.VerifySuccess:
       return { ...state, verifyLoading: false };
 
+    case UserActionTypes.ForgotPassword:
+    case UserActionTypes.ForgotPasswordConfirm:
+      return { ...state, forgotPasswordLoading: true };
+
+    case UserActionTypes.ForgotPasswordSuccess:
+      return {
+        ...state,
+        forgotPasswordLoading: false,
+        forgotPasswordCodeReady: true,
+      };
+
     case UserActionTypes.UserError:
       return {
         ...state,
         loginLoading: false,
         verifyLoading: false,
         signUpLoading: false,
+        forgotPasswordLoading: false,
       };
 
     case UserActionTypes.Logout:
@@ -65,6 +81,14 @@ export const getVerifyLoading = createSelector(
 export const getLoginLoading = createSelector(
   featureSelector,
   state => state.loginLoading
+);
+export const getForgotPasswordLoading = createSelector(
+  featureSelector,
+  state => state.forgotPasswordLoading
+);
+export const getForgotPasswordCodeReady = createSelector(
+  featureSelector,
+  state => state.forgotPasswordCodeReady
 );
 export const getEmail = createSelector(featureSelector, state => state.email);
 export const getLoggedIn = createSelector(

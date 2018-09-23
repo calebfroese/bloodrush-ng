@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { map, switchMap, catchError, tap } from 'rxjs/operators';
+import { map, switchMap, catchError, tap, mapTo } from 'rxjs/operators';
 
 import { LoginService } from '../../login.service';
 import * as UserActions from '../actions/user.actions';
@@ -101,6 +101,58 @@ export class UserEffects {
     ofType<UserActions.Logout>(UserActionTypes.Logout),
     tap(() => localStorage.clear()),
     tap(() => this.router.navigate(['/']))
+  );
+
+  @Effect()
+  forgotPassword$ = this.actions$.pipe(
+    ofType<UserActions.ForgotPassword>(UserActionTypes.ForgotPassword),
+    switchMap(action =>
+      this.loginService.forgotPassword(action.payload).pipe(
+        tap(result =>
+          this.snackbar.open(
+            `Reset code has been sent to your email at ${
+              result.CodeDeliveryDetails.Destination
+            }`,
+            'OK',
+            {
+              duration: 2000,
+            }
+          )
+        ),
+        mapTo(new UserActions.ForgotPasswordSuccess()),
+        catchError(err => of(new UserActions.UserError(err)))
+      )
+    )
+  );
+
+  @Effect()
+  forgotPasswordConfirm$ = this.actions$.pipe(
+    ofType<UserActions.ForgotPasswordConfirm>(
+      UserActionTypes.ForgotPasswordConfirm
+    ),
+    switchMap(action =>
+      this.loginService
+        .forgotPasswordConfirm(
+          action.payload.email,
+          action.payload.newPassword,
+          action.payload.code
+        )
+        .pipe(
+          tap(() =>
+            this.snackbar.open('Successfully updated password', 'OK', {
+              duration: 2000,
+            })
+          ),
+          map(
+            () =>
+              new UserActions.Login({
+                email: action.payload.email,
+                password: action.payload.newPassword,
+              })
+          ),
+          catchError(err => of(new UserActions.UserError(err)))
+        )
+    )
   );
 
   constructor(

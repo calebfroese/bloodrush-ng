@@ -11,6 +11,9 @@ export enum UserActionTypes {
   Verify = '[User] Verify',
   VerifySuccess = '[User] Verify Success',
   Logout = '[User] Logout',
+  ForgotPassword = '[User] Forgot Password',
+  ForgotPasswordSuccess = '[User] Forgot Password Success',
+  ForgotPasswordConfirm = '[User] Forgot Password Confirm',
 }
 
 export class Login implements Action {
@@ -48,6 +51,19 @@ export class ResendVerification implements Action {
 export class Logout implements Action {
   readonly type = UserActionTypes.Logout;
 }
+export class ForgotPassword implements Action {
+  readonly type = UserActionTypes.ForgotPassword;
+  constructor(public payload: string) {}
+}
+export class ForgotPasswordSuccess implements Action {
+  readonly type = UserActionTypes.ForgotPasswordSuccess;
+}
+export class ForgotPasswordConfirm implements Action {
+  readonly type = UserActionTypes.ForgotPasswordConfirm;
+  constructor(
+    public payload: { email: string; newPassword: string; code: string }
+  ) {}
+}
 
 export type UserActions =
   | Login
@@ -57,4 +73,7 @@ export type UserActions =
   | Verify
   | VerifySuccess
   | UserError
-  | Logout;
+  | Logout
+  | ForgotPassword
+  | ForgotPasswordConfirm
+  | ForgotPasswordSuccess;

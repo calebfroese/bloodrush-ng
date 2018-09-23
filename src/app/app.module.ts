@@ -13,6 +13,7 @@ import { HomeModule } from './home/home.module';
 import { metaReducers, reducers } from './reducers';
 import { SharedModule } from './shared.module';
 import { UserModule } from './user/user.module';
+import { TeamModule } from './team/team.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { UserModule } from './user/user.module';
     }),
     UserModule,
     HomeModule,
+    TeamModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

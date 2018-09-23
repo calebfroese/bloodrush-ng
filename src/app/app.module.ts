@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
 import { metaReducers, reducers } from './reducers';
 import { UserModule } from './user/user.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { UserModule } from './user/user.module';
     }),
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AppEffects]),
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

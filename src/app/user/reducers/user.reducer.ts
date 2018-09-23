@@ -45,6 +45,9 @@ export function reducer(state = initialState, action: UserActions): State {
         signUpLoading: false,
       };
 
+    case UserActionTypes.Logout:
+      return initialState;
+
     default:
       return state;
   }

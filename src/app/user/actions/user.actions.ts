@@ -10,6 +10,7 @@ export enum UserActionTypes {
   ResendVerification = '[User] Resend Verification',
   Verify = '[User] Verify',
   VerifySuccess = '[User] Verify Success',
+  Logout = '[User] Logout',
 }
 
 export class Login implements Action {
@@ -44,6 +45,9 @@ export class ResendVerification implements Action {
   readonly type = UserActionTypes.ResendVerification;
   constructor(public payload: string) {}
 }
+export class Logout implements Action {
+  readonly type = UserActionTypes.Logout;
+}
 
 export type UserActions =
   | Login
@@ -52,4 +56,5 @@ export type UserActions =
   | SignUpSuccess
   | Verify
   | VerifySuccess
-  | UserError;
+  | UserError
+  | Logout;

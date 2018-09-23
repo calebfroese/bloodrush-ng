@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "bloodrush-ng"
+  "defaultProject": "bloodrush-ng",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

@@ -1,20 +1,30 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { CognitoUserSession } from 'amazon-cognito-identity-js';
 
 import { UserActions, UserActionTypes } from '../actions/user.actions';
 
 export interface State {
   signUpLoading: boolean;
   verifyLoading: boolean;
+  loginLoading: boolean;
   email?: string;
+  userSession?: CognitoUserSession;
 }
 
 export const initialState: State = {
   signUpLoading: false,
   verifyLoading: false,
+  loginLoading: false,
 };
 
 export function reducer(state = initialState, action: UserActions): State {
   switch (action.type) {
+    case UserActionTypes.Login:
+      return { ...state, loginLoading: true };
+
+    case UserActionTypes.LoginSuccess:
+      return { ...state, loginLoading: false, userSession: action.payload };
+
     case UserActionTypes.SignUp:
       return { ...state, email: action.payload.email, signUpLoading: true };
 
@@ -28,7 +38,12 @@ export function reducer(state = initialState, action: UserActions): State {
       return { ...state, verifyLoading: false };
 
     case UserActionTypes.UserError:
-      return { ...state, verifyLoading: false, signUpLoading: false };
+      return {
+        ...state,
+        loginLoading: false,
+        verifyLoading: false,
+        signUpLoading: false,
+      };
 
     default:
       return state;
@@ -43,5 +58,9 @@ export const getSignUpLoading = createSelector(
 export const getVerifyLoading = createSelector(
   featureSelector,
   state => state.verifyLoading
+);
+export const getLoginLoading = createSelector(
+  featureSelector,
+  state => state.loginLoading
 );
 export const getEmail = createSelector(featureSelector, state => state.email);

@@ -1,7 +1,9 @@
 import { Action } from '@ngrx/store';
-import { ISignUpResult } from 'amazon-cognito-identity-js';
+import { CognitoUserSession, ISignUpResult } from 'amazon-cognito-identity-js';
 
 export enum UserActionTypes {
+  Login = '[User] Login',
+  LoginSuccess = '[User] Login Success',
   SignUp = '[User] Sign Up',
   SignUpSuccess = '[User] Sign Up Success',
   UserError = '[User] Error',
@@ -10,6 +12,14 @@ export enum UserActionTypes {
   VerifySuccess = '[User] Verify Success',
 }
 
+export class Login implements Action {
+  readonly type = UserActionTypes.Login;
+  constructor(public payload: { email: string; password: string }) {}
+}
+export class LoginSuccess implements Action {
+  readonly type = UserActionTypes.LoginSuccess;
+  constructor(public payload: CognitoUserSession) {}
+}
 export class SignUp implements Action {
   readonly type = UserActionTypes.SignUp;
   constructor(public payload: { email: string; password: string }) {}
@@ -36,6 +46,8 @@ export class ResendVerification implements Action {
 }
 
 export type UserActions =
+  | Login
+  | LoginSuccess
   | SignUp
   | SignUpSuccess
   | Verify

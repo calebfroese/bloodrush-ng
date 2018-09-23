@@ -4,6 +4,7 @@ import {
   CognitoUser,
   CognitoUserAttribute,
   CognitoUserPool,
+  CognitoUserSession,
   ISignUpResult,
 } from 'amazon-cognito-identity-js';
 import { Observable, Observer } from 'rxjs';
@@ -61,20 +62,26 @@ export class LoginService {
     });
   }
 
-  // login(username: string, password: string): Observable<any> {
-  //   const user = new CognitoUser({
-  //     Username: username,
-  //     Pool: this.pool,
-  //   });
-  //   const auth = new AuthenticationDetails({
-  //     Username: username,
-  //     Password: password,
-  //   });
-  //   return new Promise((resolve, reject) => {
-  //     user.authenticateUser(auth, {
-  //       onSuccess: resolve,
-  //       onFailure: reject,
-  //     });
-  //   });
-  // }
+  login(username: string, password: string): Observable<CognitoUserSession> {
+    const user = new CognitoUser({
+      Username: username,
+      Pool: this.pool,
+    });
+    const auth = new AuthenticationDetails({
+      Username: username,
+      Password: password,
+    });
+    return Observable.create((obs: Observer<any>) => {
+      user.authenticateUser(auth, {
+        onSuccess: data => {
+          obs.next(data);
+          obs.complete();
+        },
+        onFailure: err => {
+          obs.error(err);
+          obs.complete();
+        },
+      });
+    });
+  }
 }

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { Login } from '../actions/user.actions';
+import { getLoginLoading } from '../reducers/user.reducer';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +13,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
+  loading$: Observable<boolean>;
 
-  constructor(public fb: FormBuilder) {
+  constructor(public store: Store<any>, public fb: FormBuilder) {
     this.form = this.fb.group({
       email: this.fb.control('', [
         Validators.required,
@@ -23,5 +29,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loading$ = this.store.select(getLoginLoading);
+  }
+
+  submit(value: { email: string; password: string }) {
+    this.store.dispatch(new Login(value));
+  }
 }

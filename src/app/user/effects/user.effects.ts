@@ -12,6 +12,19 @@ import { Router } from '@angular/router';
 @Injectable()
 export class UserEffects {
   @Effect()
+  login$ = this.actions$.pipe(
+    ofType<UserActions.Login>(UserActionTypes.Login),
+    switchMap(action =>
+      this.loginService
+        .login(action.payload.email, action.payload.password)
+        .pipe(
+          map(response => new UserActions.LoginSuccess(response)),
+          catchError(err => of(new UserActions.UserError(err)))
+        )
+    )
+  );
+
+  @Effect()
   signUp$ = this.actions$.pipe(
     ofType<UserActions.SignUp>(UserActionTypes.SignUp),
     switchMap(action =>

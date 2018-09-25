@@ -1,14 +1,20 @@
 <div fxFill>
-  <mat-toolbar fxLayoutGap="20px">
-    <span>Bloodrush</span>
-    <mat-chip-list>
-      <mat-chip color="accent" selected>Beta</mat-chip>
-    </mat-chip-list>
+  <mat-toolbar fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutGap="20px">
+      <span>Bloodrush</span>
+      <mat-chip-list>
+        <mat-chip color="accent" selected>Beta</mat-chip>
+      </mat-chip-list>
+    </div>
+    <div fxLayoutGap="20px">
+      <button mat-button>My Team</button>
+      <button mat-button>User</button>
+      <button (click)="logout()" mat-button>Logout</button>
+    </div>
   </mat-toolbar>
   <div>
     <p>
       home works!
     </p>
-    <button (click)="logout()" mat-stroked-button color="primary">Logout</button>
   </div>
 </div>

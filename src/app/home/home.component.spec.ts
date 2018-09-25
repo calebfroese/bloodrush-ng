@@ -30,8 +30,17 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('dispatches event to log out', () => {
-    const logoutButton = fixture.debugElement.query(By.css('button'));
+  it('has a toolbar that contains the app title', () => {
+    const toolbar = fixture.debugElement.query(By.css('mat-toolbar'));
+    expect(toolbar.nativeElement.textContent).toContain('Bloodrush');
+    expect(toolbar.nativeElement.textContent).toContain('Beta');
+  });
+
+  it('logout button dispatches log out event', () => {
+    const logoutButton = fixture.debugElement
+      .queryAll(By.css('button'))
+      .find(btn => btn.nativeElement.textContent === 'Logout');
+    expect(logoutButton).toBeTruthy();
     logoutButton.nativeElement.click();
     expect(store.dispatch).toHaveBeenCalledWith(new Logout());
   });

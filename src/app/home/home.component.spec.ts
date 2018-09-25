@@ -30,9 +30,10 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('has a toolbar that contains the app title', () => {
+  it('has a toolbar that contains the app logo', () => {
     const toolbar = fixture.debugElement.query(By.css('mat-toolbar'));
-    expect(toolbar.nativeElement.textContent).toContain('Bloodrush');
+    const logo = toolbar.query(By.css('img'));
+    expect(logo).toBeTruthy();
     expect(toolbar.nativeElement.textContent).toContain('Beta');
   });
 

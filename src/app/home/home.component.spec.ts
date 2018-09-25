@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 
+import { MaterialModule } from '../material.module';
 import { Logout } from '../user/actions/user.actions';
 import { HomeComponent } from './home.component';
 
@@ -12,7 +13,7 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({})],
+      imports: [StoreModule.forRoot({}), MaterialModule],
       declarations: [HomeComponent],
     }).compileComponents();
   }));

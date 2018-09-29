@@ -106,7 +106,7 @@ export class UserEffects {
   logout$ = this.actions$.pipe(
     ofType<UserActions.Logout>(UserActionTypes.Logout),
     tap(() => localStorage.clear()),
-    tap(() => this.router.navigate(['/']))
+    tap(() => this.router.navigate(['/', 'login']))
   );
 
   @Effect()
